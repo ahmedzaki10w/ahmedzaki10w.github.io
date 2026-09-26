@@ -22,3 +22,7 @@ Use a non-default port (e.g. `4817`) if `3000` / `8080` are already in use.
 
 - Contact form uses FormSubmit; activate the FormSubmit email once the site is publicly hosted.
 - Keep `responsive.css` / `responsive.js`, `interactions.css` / `interactions.js`, `assets/`, page folders, and `f2c-sw.js` at the repo root.
+
+## Branding notes
+
+Framer editor badge / Edit Content button are disabled. Site icons live in `assets/icons/` (Twinzlab logo). Document titles are Twinzlab-branded on all pages.

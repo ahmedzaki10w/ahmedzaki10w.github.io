@@ -404,3 +404,16 @@ body.tz-form-ready #main .framer-255p7q { height: auto !important; }
   .tz-result, .tz-empty { animation: none; }
   .tz-spinner { animation-duration: 1.6s; }
 }
+
+/* Twinzlab: hide Framer editor/badge chrome if hydration re-injects it */
+#__framer-badge-container,
+.__framer-badge,
+#__framer-editorbar-container,
+#__framer-editorbar-button,
+#__framer-editorbar-label,
+[id^="__framer-editorbar"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
