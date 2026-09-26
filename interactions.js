@@ -41,16 +41,17 @@
     "explore products": "products/",
     "inside the lab": "lab/",
     "learn more": "about/",
-    "view product": "products/#twinz-ats",
+    "view product": "products/#products",
+    "coming soon": "lab/",
     "read more": "lab/#posts"
   };
 
   // Plain Framer frames that should behave like links.
   var LINKS = [
-    { sel: ".framer-19vq3br", href: "", label: "Twinzlab home", kind: "plain" },
+    { sel: ".framer-19vq3br", href: "", label: "TwinzLab home", kind: "plain" },
     { sel: ".framer-qdozql", mail: "Build with us", kind: "text" },
     { sel: ".framer-1es5w7d", mail: "", label: "Email " + EMAIL, kind: "text" },
-    { sel: ".framer-14aoz5q", href: "", label: "Twinzlab home", kind: "text" },
+    { sel: ".framer-14aoz5q", href: "", label: "TwinzLab home", kind: "text" },
     { sel: ".framer-1j8xv75", href: "about/", kind: "text" },
     { sel: ".framer-51s8nu", href: "products/", kind: "text" },
     { sel: ".framer-jfm3mh", href: "lab/", kind: "text" },
@@ -67,16 +68,18 @@
   var CARD_PROXIES = [
     ".framer-inyeg6", ".framer-1kvby1z", ".framer-1dmwas0",
     ".framer-1ef4b7q", ".framer-nzlyda", ".framer-tlhq47",
-    ".framer-1qxun2q", ".framer-ncsnc3"
+    ".framer-1qxun2q", ".framer-ncsnc3",
+    ".framer-eo4uhb"
   ];
 
   var PRODUCT_PILLS = [".framer-tdbu6h", ".framer-19so74", ".framer-1y83g0w"];
-  var LAB_READ_MORE = [".framer-1uia4ak", ".framer-17laeob", ".framer-1q7myax"];
+  var ARTICLE = "lab/the-bug-that-makes-you-laugh/";
+  var LAB_READ_MORE = [".framer-17laeob", ".framer-1q7myax"];
 
   var ANCHORS = {
     home: { ".framer-1lq0uvn": "who-we-are", ".framer-ihlbe4": "what-we-build", ".framer-iyzx2i": "featured-product", ".framer-2dudm4": "process", ".framer-10dq8av": "from-the-lab" },
     about: { ".framer-1yoorx3": "founders", ".framer-14mxnf4": "mission", ".framer-1ugbpjk": "twin-advantage", ".framer-1h7cige": "values" },
-    products: { ".framer-q8ddpx": "products", ".framer-1ef4b7q": "twinz-ats" },
+    products: { ".framer-q8ddpx": "products", ".framer-1ef4b7q": "aresson", ".framer-nzlyda": "daftar" },
     contact: { ".framer-1d28yuc": "contact-form", ".framer-1wesycm": "direct-contact", ".framer-1k78fk5": "partnerships" },
     lab: { ".framer-1azgdz2": "posts" }
   };
@@ -95,7 +98,7 @@
       cards: [".framer-eo4uhb", ".framer-qwhetu", ".framer-wljenu"],
       tag: ".framer-svx48s, .framer-brf2i9, .framer-1dxoj8z",
       empty: function (label) {
-        return { msg: "No " + label + " posts yet. New entries land here first.", cta: "Show all posts", filter: "all" };
+        return { msg: "No " + label + " posts yet.", cta: "Show all posts", filter: "all" };
       }
     }
   };
@@ -158,6 +161,9 @@
 
     LAB_READ_MORE.forEach(function (sel) {
       $$(sel, root).forEach(function (el) { makeDisabled(el, "Full post coming soon", "pill"); });
+    });
+    $$(".framer-1uia4ak, .framer-fwj0dz-container a.framer-s29zbl", root).forEach(function (el) {
+      makeLink(el, site(ARTICLE), "button", "Read the article");
     });
 
     CARD_PROXIES.forEach(function (sel) {
@@ -298,15 +304,15 @@
     f.className = "tz-form";
     f.noValidate = true;
     f.setAttribute("data-state", "idle");
-    f.setAttribute("aria-label", "Contact Twinzlab");
+    f.setAttribute("aria-label", "Contact TwinzLab");
     f.innerHTML =
       '<div class="tz-form__fields">' +
         '<div class="tz-form__row">' +
           field("name", "Your name", '<input id="tz-name" name="name" type="text" autocomplete="name" required minlength="2" maxlength="80" placeholder="Jane Doe">') +
           field("email", "Email address", '<input id="tz-email" name="email" type="email" inputmode="email" autocomplete="email" required maxlength="120" placeholder="you@company.com">') +
         "</div>" +
-        '<div class="tz-topic" hidden><span class="tz-topic__label">Topic</span><span class="tz-topic__value"></span><button type="button" class="tz-topic__clear" aria-label="Remove topic">&times;</button></div>' +
-        field("message", "Message", '<textarea id="tz-message" name="message" rows="6" required minlength="20" maxlength="2000" placeholder="Tell us about your idea, your timeline, and anything we should know."></textarea>', '<span class="tz-count" aria-hidden="true">0 / 2000</span>') +
+        '<div class="tz-topic" hidden><span class="tz-topic__label">Reason</span><span class="tz-topic__value"></span><button type="button" class="tz-topic__clear" aria-label="Remove topic">&times;</button></div>' +
+        field("message", "Message", '<textarea id="tz-message" name="message" rows="6" required minlength="20" maxlength="2000" placeholder="An idea, a challenge, a partnership, or an investment conversation."></textarea>', '<span class="tz-count" aria-hidden="true">0 / 2000</span>') +
         '<div class="tz-hp" aria-hidden="true"><label for="tz-honey">Leave this field empty</label><input id="tz-honey" name="_honey" type="text" tabindex="-1" autocomplete="off"></div>' +
         '<div class="tz-form__actions">' +
           '<button type="submit" class="tz-btn tz-btn--primary tz-submit"><span class="tz-spinner" aria-hidden="true"></span><span class="tz-submit__label">Send message</span></button>' +
@@ -355,7 +361,7 @@
     if (t) {
       topic = t.slice(0, 60);
       var msg = form.querySelector("#tz-message");
-      msg.value = "Hi Twinzlab, I'd like to know more about " + topic + ". ";
+      msg.value = "Hi TwinzLab, I'd like to know more about " + topic + ". ";
       updateCount();
     }
     renderTopic();
@@ -445,7 +451,7 @@
     var payload = { name: name, email: email, message: message };
     if (topic) payload.topic = topic;
     payload.page = location.href;
-    payload._subject = "New Twinzlab contact message";
+    payload._subject = "New TwinzLab contact message";
     payload._template = "table";
     payload._captcha = "false";
     payload._honey = honey;
