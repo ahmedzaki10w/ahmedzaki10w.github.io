@@ -1,0 +1,406 @@
+/* Interaction states for every CTA plus the injected contact form, filters and toast.
+   Selectors target Framer's stable class hashes and the data-tz-* hooks that interactions.js adds. */
+
+:root {
+  --tz-accent: #eaab78;
+  --tz-ink: #18110b;
+  --tz-paper: #d9d9d9;
+  --tz-surface: #231c17;
+  --tz-surface-2: #2e251f;
+  --tz-danger: #ff9d8f;
+  --tz-ok: #9fd9a8;
+  --tz-ease: cubic-bezier(.2, .7, .2, 1);
+  --tz-fast: .12s;
+  --tz-med: .22s;
+  --tz-primary-bg: linear-gradient(180deg, #d9d9d9 70.6%, #e9ab78 82.7%, #c1d9ff 100%);
+}
+
+#main [data-tz-anchor] { scroll-margin-top: 96px; }
+#main [data-tz-hidden] { display: none !important; }
+
+/* ---------------------------------------------------------------- buttons */
+
+#main a.framer-s29zbl,
+#main [data-tz-kind="pill"] {
+  cursor: pointer;
+  transition: transform var(--tz-med) var(--tz-ease), box-shadow var(--tz-med) var(--tz-ease),
+              filter var(--tz-med) var(--tz-ease), background-color var(--tz-med) var(--tz-ease) !important;
+  -webkit-tap-highlight-color: transparent;
+}
+#main a.framer-s29zbl svg { transition: transform var(--tz-med) var(--tz-ease); }
+
+@media (hover: hover) {
+  #main a.framer-s29zbl:hover,
+  #main [data-tz-kind="pill"]:not([aria-disabled="true"]):hover {
+    transform: translateY(-2px) !important;
+    filter: brightness(1.07);
+    box-shadow: 0 10px 24px -12px rgba(234, 171, 120, .6) !important;
+  }
+  #main a.framer-s29zbl[data-framer-name^="Secoundary" i]:hover,
+  #main a.framer-s29zbl[data-framer-name^="secoundary" i]:hover {
+    background-color: rgba(255, 255, 255, .08) !important;
+    box-shadow: 0 10px 24px -14px rgba(255, 255, 255, .35) !important;
+  }
+  #main a.framer-s29zbl[data-framer-name="Third"]:hover {
+    transform: none !important;
+    box-shadow: none !important;
+    filter: none;
+    background-color: rgba(255, 255, 255, .06) !important;
+  }
+  #main a.framer-s29zbl:hover svg { transform: translateX(3px); }
+}
+
+#main a.framer-s29zbl:active,
+#main [data-tz-kind="pill"]:not([aria-disabled="true"]):active {
+  transform: translateY(0) scale(.96) !important;
+  filter: brightness(.92);
+  box-shadow: 0 2px 6px -3px rgba(234, 171, 120, .5) !important;
+  transition-duration: var(--tz-fast) !important;
+}
+
+/* one focus ring for everything keyboard-reachable */
+#main a.framer-s29zbl:focus-visible,
+#main a.framer-1boce9:focus-visible,
+#main [data-tz-kind]:focus-visible,
+.tz-btn:focus-visible,
+.tz-form input:focus-visible,
+.tz-form textarea:focus-visible,
+.tz-menu a:focus-visible,
+.tz-menu-btn:focus-visible {
+  outline: 2px solid var(--tz-accent) !important;
+  outline-offset: 3px !important;
+  border-radius: 6px;
+}
+#main a.framer-s29zbl:focus:not(:focus-visible),
+#main [data-tz-kind]:focus:not(:focus-visible) { outline: none; }
+
+/* ---------------------------------------------------------------- nav */
+
+#main a.framer-1boce9 {
+  transition: background-color var(--tz-med) var(--tz-ease), transform var(--tz-fast) var(--tz-ease) !important;
+  border-radius: 6px !important;
+}
+@media (hover: hover) {
+  #main a.framer-1boce9:hover { background-color: rgba(255, 255, 255, .08) !important; }
+}
+#main a.framer-1boce9:active { transform: scale(.96); }
+
+/* ---------------------------------------------------------------- text links (footer, "Build with us", email) */
+
+#main [data-tz-kind="text"] {
+  cursor: pointer;
+  border-radius: 4px;
+  transition: opacity var(--tz-med) var(--tz-ease), transform var(--tz-fast) var(--tz-ease);
+  -webkit-tap-highlight-color: transparent;
+}
+#main [data-tz-kind="text"] .framer-text {
+  transition: color var(--tz-med) var(--tz-ease), text-decoration-color var(--tz-med) var(--tz-ease);
+  text-decoration-line: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+}
+#main .framer-1es5w7d .framer-text,
+#main .framer-hl416f .framer-text { text-decoration-color: currentColor; }
+@media (hover: hover) {
+  #main [data-tz-kind="text"]:not([aria-disabled="true"]):hover .framer-text {
+    color: var(--tz-accent) !important;
+    text-decoration-color: currentColor;
+  }
+  #main [data-tz-kind="text"]:not([aria-disabled="true"]):hover svg { color: var(--tz-accent); }
+}
+#main [data-tz-kind="text"]:not([aria-disabled="true"]):active { opacity: .7; transform: translateY(1px); }
+#main [data-tz-kind="plain"] { cursor: pointer; transition: transform var(--tz-med) var(--tz-ease); }
+@media (hover: hover) {
+  #main [data-tz-kind="plain"]:hover { transform: scale(1.05); }
+}
+#main [data-tz-kind="plain"]:active { transform: scale(.95); }
+
+/* ---------------------------------------------------------------- cards */
+
+#main [data-tz-kind="card"] {
+  cursor: pointer;
+  transition: transform var(--tz-med) var(--tz-ease), box-shadow var(--tz-med) var(--tz-ease) !important;
+  -webkit-tap-highlight-color: transparent;
+}
+#main [data-tz-kind="card"]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow: inset 0 0 0 1px rgba(234, 171, 120, .55);
+  background: linear-gradient(180deg, rgba(255, 255, 255, .06), transparent 40%);
+  opacity: 0;
+  transition: opacity var(--tz-med) var(--tz-ease);
+}
+@media (hover: hover) {
+  #main [data-tz-kind="card"]:hover {
+    transform: translateY(-4px) !important;
+    box-shadow: 0 22px 44px -20px rgba(0, 0, 0, .95) !important;
+  }
+  #main [data-tz-kind="card"]:hover::after { opacity: 1; }
+}
+#main [data-tz-kind="card"]:active::after { opacity: 1; }
+#main [data-tz-kind="card"]:active {
+  transform: translateY(-1px) scale(.99) !important;
+  transition-duration: var(--tz-fast) !important;
+}
+
+/* ---------------------------------------------------------------- chips (filters, contact topics) */
+
+#main [data-tz-kind="chip"],
+#main [data-tz-kind="tag"] {
+  cursor: pointer;
+  transition: background-color var(--tz-med) var(--tz-ease), transform var(--tz-fast) var(--tz-ease), box-shadow var(--tz-med) var(--tz-ease) !important;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+#main [data-tz-kind="chip"] { background-color: var(--tz-surface) !important; }
+#main [data-tz-kind="chip"] img { transition: opacity var(--tz-med) var(--tz-ease); }
+#main [data-tz-kind="chip"][aria-pressed="false"] img { opacity: 0; }
+#main [data-tz-kind="chip"][aria-pressed="false"] .framer-text { color: var(--tz-paper) !important; }
+#main [data-tz-kind="chip"][aria-pressed="true"] { background: var(--tz-primary-bg) !important; }
+#main [data-tz-kind="chip"][aria-pressed="true"] .framer-text { color: var(--tz-ink) !important; }
+@media (hover: hover) {
+  #main [data-tz-kind="chip"][aria-pressed="false"]:hover { background-color: var(--tz-surface-2) !important; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .14); }
+}
+#main [data-tz-kind="chip"]:active,
+#main [data-tz-kind="tag"]:active { transform: scale(.95); }
+
+#main [data-tz-kind="tag"] { border-radius: 999px; padding: 8px 14px !important; margin: -8px -4px; }
+@media (hover: hover) {
+  #main [data-tz-kind="tag"]:hover { background-color: var(--tz-surface-2); }
+}
+#main [data-tz-kind="tag"][aria-pressed="true"] { background-color: var(--tz-surface-2); box-shadow: inset 0 0 0 1px var(--tz-accent); }
+#main [data-tz-kind="tag"][aria-pressed="true"] .framer-text { color: var(--tz-accent) !important; }
+
+/* ---------------------------------------------------------------- disabled */
+
+#main [aria-disabled="true"] {
+  cursor: not-allowed !important;
+  opacity: .5;
+  transform: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+#main [data-tz-kind="text"][aria-disabled="true"] { display: flex !important; flex-direction: row !important; align-items: center; gap: 8px; }
+#main [data-tz-kind="text"][aria-disabled="true"]::after {
+  content: "Soon";
+  font: 500 10px/1 "Inter Tight", system-ui, sans-serif;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--tz-paper);
+  padding: 3px 6px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, .25);
+}
+
+/* ---------------------------------------------------------------- shared small buttons (form, empty states) */
+
+.tz-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 0 24px;
+  border: 0;
+  border-radius: 4px;
+  font: 400 16px/1.2 "Inter Tight", "Inter Tight Placeholder", system-ui, sans-serif;
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform var(--tz-med) var(--tz-ease), box-shadow var(--tz-med) var(--tz-ease),
+              filter var(--tz-med) var(--tz-ease), background-color var(--tz-med) var(--tz-ease), opacity var(--tz-med);
+}
+.tz-btn--primary { background: var(--tz-primary-bg); color: var(--tz-ink); }
+.tz-btn--ghost { background: transparent; color: var(--tz-paper); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .7); }
+.tz-btn--text { background: transparent; color: var(--tz-paper); padding: 0 12px; text-decoration: underline; text-underline-offset: 4px; }
+@media (hover: hover) {
+  .tz-btn--primary:not(:disabled):hover { transform: translateY(-2px); filter: brightness(1.07); box-shadow: 0 10px 24px -12px rgba(234, 171, 120, .6); }
+  .tz-btn--ghost:not(:disabled):hover { transform: translateY(-2px); background-color: rgba(255, 255, 255, .08); }
+  .tz-btn--text:hover { color: var(--tz-accent); }
+}
+.tz-btn:not(:disabled):active { transform: scale(.96); filter: brightness(.92); transition-duration: var(--tz-fast); }
+.tz-btn:disabled { cursor: not-allowed; opacity: .6; filter: saturate(.4); }
+
+/* ---------------------------------------------------------------- contact form */
+
+body.tz-form-ready #main .framer-255p7q > :not(.tz-form) { display: none !important; }
+body.tz-form-ready #main .framer-255p7q { height: auto !important; }
+
+.tz-form {
+  width: 100%;
+  font-family: "Inter Tight", "Inter Tight Placeholder", system-ui, sans-serif;
+  color: var(--tz-paper);
+  text-align: left;
+}
+.tz-form__fields { display: flex; flex-direction: column; gap: 24px; }
+.tz-hp { position: absolute !important; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+.tz-form__row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.tz-field { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.tz-field label { font-size: 14px; line-height: 1.3; color: var(--tz-paper); }
+.tz-field input,
+.tz-field textarea {
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 48px;
+  padding: 12px 16px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--tz-surface);
+  color: #fff;
+  font: 400 16px/1.5 "Inter Tight", "Inter Tight Placeholder", system-ui, sans-serif;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .06);
+  transition: box-shadow var(--tz-med) var(--tz-ease), background-color var(--tz-med) var(--tz-ease);
+  -webkit-appearance: none;
+  appearance: none;
+}
+.tz-field textarea { min-height: 160px; resize: vertical; }
+.tz-field input::placeholder,
+.tz-field textarea::placeholder { color: rgba(255, 255, 255, .38); }
+@media (hover: hover) {
+  .tz-field input:hover,
+  .tz-field textarea:hover { box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .18); }
+}
+.tz-field input:focus,
+.tz-field textarea:focus { outline: none; background: #2a221c; box-shadow: inset 0 0 0 1px var(--tz-accent), 0 0 0 3px rgba(234, 171, 120, .2); }
+.tz-field input[aria-invalid="true"],
+.tz-field textarea[aria-invalid="true"] { box-shadow: inset 0 0 0 1px var(--tz-danger); }
+.tz-field input[aria-invalid="true"]:focus,
+.tz-field textarea[aria-invalid="true"]:focus { box-shadow: inset 0 0 0 1px var(--tz-danger), 0 0 0 3px rgba(255, 157, 143, .2); }
+.tz-field input:read-only,
+.tz-field textarea:read-only { opacity: .7; }
+.tz-field__meta { display: flex; justify-content: space-between; gap: 16px; min-height: 18px; }
+.tz-field__meta:not(:has(.tz-count)):not(:has(.tz-field__error:not(:empty))) { display: none; }
+.tz-field__error { margin: 0; font-size: 13px; line-height: 1.35; color: var(--tz-danger); }
+.tz-count { margin-left: auto; font-size: 12px; color: rgba(255, 255, 255, .45); font-variant-numeric: tabular-nums; }
+
+.tz-topic { display: flex; align-items: center; gap: 8px; align-self: flex-start; padding: 4px 4px 4px 12px; border-radius: 999px; background: var(--tz-surface); box-shadow: inset 0 0 0 1px rgba(234, 171, 120, .5); font-size: 14px; }
+.tz-topic[hidden] { display: none; }
+.tz-topic__label { color: rgba(255, 255, 255, .55); }
+.tz-topic__value { color: var(--tz-accent); }
+.tz-topic__clear { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border: 0; border-radius: 999px; background: transparent; color: var(--tz-paper); font-size: 20px; cursor: pointer; transition: background-color var(--tz-med); }
+.tz-topic__clear:hover { background: var(--tz-surface-2); }
+.tz-topic__clear:focus-visible { outline: 2px solid var(--tz-accent); outline-offset: 1px; }
+
+.tz-form__actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.tz-form__note { margin: 0; flex: 1 1 200px; font-size: 13px; line-height: 1.4; color: rgba(255, 255, 255, .5); }
+.tz-submit { position: relative; min-width: 184px; }
+.tz-spinner {
+  display: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid rgba(24, 17, 11, .25);
+  border-top-color: var(--tz-ink);
+  animation: tz-spin .7s linear infinite;
+}
+.tz-form[data-state="loading"] .tz-spinner { display: inline-block; }
+@keyframes tz-spin { to { transform: rotate(360deg); } }
+
+.tz-alert { margin: 0; padding: 12px 16px; border-radius: 8px; font-size: 14px; line-height: 1.4; }
+.tz-alert[hidden] { display: none; }
+.tz-alert--error { background: rgba(255, 157, 143, .1); color: var(--tz-danger); box-shadow: inset 0 0 0 1px rgba(255, 157, 143, .35); }
+
+.tz-result {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 32px;
+  border-radius: 12px;
+  background: var(--tz-surface);
+  outline: none;
+  animation: tz-rise var(--tz-med) var(--tz-ease);
+}
+.tz-result[hidden] { display: none; }
+.tz-result h3 { margin: 0; font: 400 24px/1.25 "Inter Tight", "Inter Tight Placeholder", system-ui, sans-serif; color: #fff; }
+.tz-result p { margin: 0; font-size: 16px; line-height: 1.5; color: rgba(255, 255, 255, .72); }
+.tz-result__icon { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 999px; font-size: 20px; font-weight: 600; }
+.tz-result--success { box-shadow: inset 0 0 0 1px rgba(159, 217, 168, .35); }
+.tz-result--success .tz-result__icon { background: rgba(159, 217, 168, .15); color: var(--tz-ok); }
+.tz-result--error { box-shadow: inset 0 0 0 1px rgba(255, 157, 143, .35); }
+.tz-result--error .tz-result__icon { background: rgba(255, 157, 143, .15); color: var(--tz-danger); }
+.tz-result__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+@keyframes tz-rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+@media (max-width: 767px) {
+  .tz-form__row { grid-template-columns: 1fr; gap: 24px; }
+  .tz-form__actions { flex-direction: column; align-items: stretch; }
+  .tz-submit { width: 100%; }
+  .tz-form__note { text-align: center; }
+  .tz-result { padding: 24px; }
+  .tz-result__actions { flex-direction: column; align-items: stretch; width: 100%; }
+}
+
+/* ---------------------------------------------------------------- filter empty state */
+
+.tz-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  padding: 48px 24px;
+  border-radius: 12px;
+  background: var(--tz-surface);
+  text-align: center;
+  font-family: "Inter Tight", "Inter Tight Placeholder", system-ui, sans-serif;
+  animation: tz-rise var(--tz-med) var(--tz-ease);
+}
+.tz-empty p { margin: 0; max-width: 32ch; font-size: 18px; line-height: 1.45; color: var(--tz-paper); }
+
+/* ---------------------------------------------------------------- toast */
+
+.tz-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  z-index: 10002;
+  max-width: min(420px, calc(100vw - 32px));
+  padding: 12px 16px;
+  border-radius: 8px;
+  background: #332b25;
+  color: #fff;
+  font: 400 14px/1.4 "Inter Tight", "Inter Tight Placeholder", system-ui, sans-serif;
+  box-shadow: 0 12px 32px -12px rgba(0, 0, 0, .7);
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(-50%, 8px);
+  transition: opacity var(--tz-med) var(--tz-ease), transform var(--tz-med) var(--tz-ease), visibility 0s linear var(--tz-med);
+}
+.tz-toast.is-visible { opacity: 1; visibility: visible; transform: translate(-50%, 0); transition: opacity var(--tz-med) var(--tz-ease), transform var(--tz-med) var(--tz-ease); }
+
+/* ---------------------------------------------------------------- mobile menu states */
+
+.tz-menu a { transition: background-color var(--tz-med) var(--tz-ease), transform var(--tz-fast) var(--tz-ease), filter var(--tz-med); }
+@media (hover: hover) {
+  .tz-menu a:not([aria-current]):hover { background: #2a221c; }
+  .tz-menu a.tz-menu__cta:hover { filter: brightness(1.07); }
+  .tz-menu-btn:hover { background: rgba(70, 60, 52, .75); }
+}
+.tz-menu a:active { transform: scale(.98); }
+.tz-menu a.tz-menu__cta:active { filter: brightness(.92); }
+.tz-menu-btn { transition: background-color var(--tz-med), transform var(--tz-fast); }
+.tz-menu-btn:active { transform: scale(.94); }
+.tz-menu a.tz-menu__mail { display: inline-flex; min-height: 44px; font-size: 16px; color: var(--tz-paper); text-decoration: underline; text-underline-offset: 4px; opacity: .8; }
+
+/* ---------------------------------------------------------------- reduced motion */
+
+@media (prefers-reduced-motion: reduce) {
+  #main a.framer-s29zbl, #main a.framer-1boce9, #main [data-tz-kind], #main [data-tz-kind] .framer-text,
+  #main a.framer-s29zbl svg, .tz-btn, .tz-field input, .tz-field textarea, .tz-toast, .tz-menu a, .tz-menu-btn {
+    transition-property: color, background-color, box-shadow, opacity, text-decoration-color !important;
+    transition-duration: .01s !important;
+  }
+  #main a.framer-s29zbl:hover, #main a.framer-s29zbl:active,
+  #main [data-tz-kind]:hover, #main [data-tz-kind]:active,
+  #main a.framer-s29zbl:hover svg, .tz-btn:hover, .tz-btn:active, .tz-menu a:active, .tz-menu-btn:active {
+    transform: none !important;
+  }
+  .tz-result, .tz-empty { animation: none; }
+  .tz-spinner { animation-duration: 1.6s; }
+}
